@@ -16,11 +16,25 @@ BASE_DIR = os.path.dirname(__file__)
 MODEL_PATH = os.path.join(BASE_DIR, "..", "models", "best_model.pkl")
 SCALER_PATH = os.path.join(BASE_DIR, "..", "models", "scaler.pkl")
 
-# Load model
-model = joblib.load(MODEL_PATH)
+# Load model with error handling
+try:
+    model = joblib.load(MODEL_PATH)
+    print(f"Model loaded successfully from {MODEL_PATH}")
+except Exception as e:
+    print(f"Error loading model: {e}")
+    model = None
 
 # Load scaler only if file exists
-scaler = joblib.load(SCALER_PATH) if os.path.exists(SCALER_PATH) else None
+if os.path.exists(SCALER_PATH):
+    try:
+        scaler = joblib.load(SCALER_PATH)
+        print("Scaler loaded successfully")
+    except Exception as e:
+        print(f"Error loading scaler: {e}")
+        scaler = None
+else:
+    print("Scaler file not found, proceeding without scaling")
+    scaler = None
 
 # ==============================
 # FastAPI App
@@ -56,10 +70,29 @@ class GlucoseInput(BaseModel):
     HR_IR: float = Field(..., ge=10000, le=120000, description="HR Infrared Reading")
 
 # ==============================
+# Health Check Endpoint
+# ==============================
+@app.get("/")
+def root():
+    return {"message": "Glucose Level Prediction API is running"}
+
+@app.get("/health")
+def health_check():
+    return {
+        "status": "healthy",
+        "model_loaded": model is not None,
+        "scaler_loaded": scaler is not None
+    }
+
+# ==============================
 # Prediction Endpoint
 # ==============================
 @app.post("/predict")
 def predict(input_data: GlucoseInput):
+    # Check if model is loaded
+    if model is None:
+        return {"error": "Model not loaded. Please check server logs."}
+    
     # Convert input to numpy array
     features = np.array([[ 
         input_data.AGE,
