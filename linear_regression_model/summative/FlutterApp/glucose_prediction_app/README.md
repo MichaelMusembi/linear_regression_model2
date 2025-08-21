@@ -1,128 +1,83 @@
-# glucose_prediction_app
+# Glucose Level Prediction with Linear Regression – Health Focused 🩺
 
-A new Flutter project.
+**Mission**: Diabetes and other blood sugar disorders pose a growing global health challenge, often going undetected until serious complications arise. This project leverages a simple linear regression model to predict blood glucose levels from health and lifestyle factors, providing a data-driven approach to early detection, preventive care, and public health awareness.
 
-## Getting Started
+## � GitHub Repository
+All source files are hosted here:
+➡️ https://github.com/MichaelMusembi/linear_regression_model2
 
-# Glucose Level Prediction Flutter App
+Contents include:
+- **linear_regression/**: Jupyter notebook for data analysis, preprocessing, and model training
+- **API/**: FastAPI backend for serving predictions  
+- **FlutterApp/**: Flutter mobile app to consume and visualize API predictions
 
-A Flutter mobile application that predicts glucose levels using a machine learning API.
+## 📡 Public API Endpoint (Live)
+🔗 **Base URL**: https://linear-regression-model2.onrender.com/
 
-## Features
+📘 **Swagger UI Docs**: https://linear-regression-model2.onrender.com/docs
 
-✅ **10 Input Fields** - All required variables for glucose prediction:
-- Age (10-100 years)
-- Gender (0=Female, 1=Male) 
-- Weight (20-200 kg)
-- Skin Color (1-3)
-- NIR Reading (50-1000)
-- Heart Rate (20-200 bpm)
-- Height (4.0-7.5 feet)
-- Hours Since Last Meal (0-24)
-- Diabetic Status (0=No, 1=Yes)
-- HR Infrared Reading (10000-120000)
+**YouTube Demo Video URL**: https://youtu.be/vaVTie3-xiU
 
-✅ **"Predict" Button** - Sends data to API and gets prediction
-✅ **Result Display Area** - Shows predicted glucose level or error messages
-✅ **Input Validation** - Enforces data types and acceptable ranges
-✅ **Professional UI** - Clean, organized layout with icons and proper spacing
-✅ **Error Handling** - User-friendly error messages for invalid inputs
-✅ **Loading States** - Shows progress indicator during API calls
-✅ **Clear Function** - Reset all fields with one button
-
-## API Integration
-
-- **Endpoint**: `https://linear-regression-model2.onrender.com/predict`
-- **Method**: POST
-- **Content-Type**: application/json
-- **Response**: JSON with predicted glucose level
-
-## App Structure
-
-### 📱 Single Page Application
-- **Header**: App title and health icon
-- **Input Section**: 10 text fields with validation
-- **Action Buttons**: Predict and Clear buttons
-- **Result Section**: Displays prediction or error messages
-
-### 🎨 UI Features
-- **Material Design 3** with teal color scheme
-- **Icons** for each input field (calendar, person, heart, etc.)
-- **Cards** for organized sections
-- **Responsive layout** that works on different screen sizes
-- **Loading indicators** and success/error states
-
-## How to Run
-
-1. **Install Dependencies**:
-   ```bash
-   flutter pub get
-   ```
-
-2. **Run on Mobile Device**:
-   ```bash
-   flutter run
-   ```
-
-3. **Run in Web Browser**:
-   ```bash
-   flutter run -d chrome
-   ```
-
-4. **Run on Specific Port**:
-   ```bash
-   flutter run -d chrome --web-port 8080
-   ```
-
-## Usage Instructions
-
-1. **Fill All Fields**: Enter valid values for all 10 required fields
-2. **Validation**: App will show error messages if values are out of range
-3. **Predict**: Click the "Predict" button to get glucose level prediction
-4. **View Results**: Prediction appears in the result card below
-5. **Clear**: Use "Clear" button to reset all fields
-
-## Technical Details
-
-- **Framework**: Flutter 3.8.1+
-- **Language**: Dart
-- **HTTP Client**: http package v1.5.0
-- **UI**: Material Design 3
-- **Platform**: Cross-platform (iOS, Android, Web)
-
-## API Integration Details
-
-The app sends a POST request with JSON data:
+## ➕ Example API Request
 ```json
+POST /predict
 {
-  "AGE": 45,
+  "AGE": 25,
   "GENDER": 1,
   "WEIGHT": 70.5,
   "SKIN_COLOR": 2,
-  "NIR_Reading": 850.0,
+  "NIR_Reading": 125.8,
   "HEARTRATE": 75.0,
   "HEIGHT": 5.8,
-  "LAST_EATEN": 2.5,
+  "LAST_EATEN": 3.5,
   "DIABETIC": 0,
-  "HR_IR": 45000.0
+  "HR_IR": 85000.0
 }
 ```
 
-And receives a response like:
+## ✔️ Example Response
 ```json
 {
-  "predicted_glucose_level": 95.67
+  "predicted_glucose_level": 98.75
 }
 ```
 
-## Requirements Met ✅
+## 🧠 Dataset Source
+We use real-world data sourced from Kaggle:
+📊 [Glucose Level Estimation Dataset](https://www.kaggle.com/datasets/fatimaafzaal/glucose-level-estimation?utm_source=chatgpt.com)
 
-- ✅ More than one page capability (single scrollable page with sections)
-- ✅ Text fields for all prediction variables (10 fields)
-- ✅ "Predict" button as specified
-- ✅ Display area for predictions and error messages
-- ✅ Proper organization and layout
-- ✅ No overlapping elements
-- ✅ Professional, presentable appearance
-- ✅ API integration with deployed endpoint
-- ✅ Data validation and error handling
+## 📱 How to Run the Mobile App (Flutter)
+The Flutter app consumes the API and provides a mobile interface to enter inputs and view glucose predictions.
+
+### 🚀 Prerequisites
+- Flutter SDK (version ≥ 3.10)
+- Android Studio or Visual Studio Code
+- Internet access to connect to the public API
+
+### 🛠️ Installation Steps
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/MichaelMusembi/linear_regression_model2.git
+cd linear_regression_model2/linear_regression_model/summative/FlutterApp/glucose_prediction_app
+```
+
+2. **Install dependencies**
+```bash
+flutter pub get
+```
+
+3. **Run the app**
+```bash
+flutter run
+```
+
+On emulator or real device, input your health values and hit **Predict** to view glucose level predictions via API.
+
+*Make sure your emulator/device is connected to the internet to access the public API.*
+
+## Contributors
+**Michael Musembi** – @MichaelMusembi
+
+## License
+MIT License © 2025 Michael Musembi
